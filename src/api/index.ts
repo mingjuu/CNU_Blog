@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IPostWithAd, IResponsePostList, TAG } from './types';
+import { IResponsePostList, TAG } from './types';
 
 const instance = axios.create({
   headers: {
@@ -14,7 +14,7 @@ export const getPostList = (): Promise<AxiosResponse<IResponsePostList>> => {
   return instance.get('/posts');
 };
 
-export const createPost = (title: string, contents: string, tag:string) => {
+export const createPost = (title: string, contents: string, tag: string) => {
   return instance.post('/posts', {
     title,
     contents,

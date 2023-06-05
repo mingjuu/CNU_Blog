@@ -32,9 +32,24 @@ const list = [
 ];
 
 const Home = () => {
+  const [postList,setPostList ] = useState<IResponsePostList>([]);
+
+  const fetchPostList = async () => {
+    const { data} = await getPostList();
+    setPostList(data);
+  };
+
+  useEffect(() => {
+    fetchPostList();
+  }, []);
+
+  if (postList.length === 0){
+    return <NoPostList />;
+  }
+
   return (
     <div>
-      {list.map(item => (
+      {postList.map(item => (
         <PostListItem key={item.post.id} {...item.post} />
       ))}
     </div>

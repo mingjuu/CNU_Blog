@@ -101,60 +101,56 @@ const Write = () => {
   };
 
   useEffect(() => {
-    if(isEdit){
+    if (isEdit) {
       fetchPostById(state.postId);
     }
   }, []);
 
   const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
-  }
-  
+  };
+
   const handleChangeContent = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
-  }
+  };
   const handleChangeTag = (event: ChangeEvent<HTMLSelectElement>) => {
     setTag(event.target.value as TAG);
-  }
+  };
 
   const navigate = useNavigate();
-  
+
   const requestCreatePost = async () => {
     await createPost(title, content, tag);
   };
 
   const requestUpdatePost = async () => {
-    await updatePostById(id, title, content, tag);
+    await updatePostById(state.postId, title, content, tag);
   };
 
   const clickConfirm = () => {
-    if(!title || !content){
+    if (!title || !content) {
       alert('빈 값이 왔습니다.');
       return;
     }
-    if(isEdit){
+    if (isEdit) {
       requestUpdatePost();
-    }
-    else{
+    } else {
       requestCreatePost();
     }
 
     navigate('/');
-  }
-
-
-  
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{ height: 'calc(100% - 4rem)', paddingBottom: '4rem' }}>
-        <TitleInput placeholder='제목을 입력하세요' value = {title} onChange={handleChangeTitle}/>
-        <TagSelect placeholder={'태그를 선택하세요'} value = {tag} onChange={handleChangeTag}>
+        <TitleInput placeholder="제목을 입력하세요" value={title} onChange={handleChangeTitle} />
+        <TagSelect placeholder={'태그를 선택하세요'} value={tag} onChange={handleChangeTag}>
           {tagList.map(tag => {
-            return <option key={tag}></option>
+            return <option key={tag}></option>;
           })}
         </TagSelect>
-        <Editor value = {content} onChange={handleChangeContent} placeholder='내용을 입력하세요 ' />
+        <Editor value={content} onChange={handleChangeContent} placeholder="내용을 입력하세요 " />
       </div>
       <BottomSheet>
         <Link to="/">
